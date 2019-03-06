@@ -1,4 +1,4 @@
-package com.lin.recitewords.service;
+package com.lin.recitewords.common.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.common.Mapper;

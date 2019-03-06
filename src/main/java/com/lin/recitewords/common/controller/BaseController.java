@@ -1,5 +1,6 @@
 package com.lin.recitewords.common.controller;
 
+import com.lin.recitewords.common.service.MailService;
 import com.lin.recitewords.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -7,22 +8,24 @@ import javax.servlet.http.HttpSession;
 
 public abstract class BaseController {
 	@Autowired
-	private ExamDetailService examDetailService;
+	protected ExamDetailService examDetailService;
 	@Autowired
-	private ExamService examService;
+	protected ExamService examService;
 	@Autowired
-	private LoginLogService loginLogService;
+	protected LoginLogService loginLogService;
 	@Autowired
-	private UserService userService;
+	protected UserService userService;
 	@Autowired
-	private WordBookService wordBookService;
+	protected WordBookService wordBookService;
 	@Autowired
-	private WordService wordService;
+	protected WordService wordService;
 	@Autowired
-	private WrongBookService wrongBookService;
+	protected WrongBookService wrongBookService;
 	@Autowired
 	private WrongService wrongService;
 
 	@Autowired
-	private HttpSession session;
+	protected HttpSession session;
+	@Autowired
+	protected MailService mailService;
 }

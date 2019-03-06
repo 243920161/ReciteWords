@@ -1,5 +1,7 @@
 package com.lin.recitewords;
 
+import com.lin.recitewords.common.service.MailService;
+import com.lin.recitewords.model.User;
 import com.lin.recitewords.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +16,7 @@ public class RecitewordsApplicationTests {
 	private UserService userService;
 	@Test
 	public void contextLoads() {
-		System.out.println(userService.findById(1));
+		userService.sendMail("243920161@qq.com");
 	}
 
 }
