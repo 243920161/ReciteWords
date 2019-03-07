@@ -12,10 +12,11 @@ import java.util.Random;
 public class UserService extends AbstractService<User> {
 	@Autowired
 	private MailService mailService;
+
 	// 发送邮件
-	public void sendMail(String to) {
+	public void sendMail(final String to) {
 		Random random = new Random();
-		int code = random.nextInt(8999) + 1000;
-		mailService.send(to, "您的验证码为" + code);
+		int code = random.nextInt(9000) + 1000;
+		mailService.send(to, "您的验证码为" + code + "，该验证码在30分钟有效，请及时使用");
 	}
 }
