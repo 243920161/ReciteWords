@@ -57,6 +57,7 @@ public class LoginController extends BaseController {
 		if (user == null) {
 			return R.error("用户名或密码错误");
 		}
+		session.setAttribute("user", user);
 		return R.ok("登录成功");
 	}
 }
