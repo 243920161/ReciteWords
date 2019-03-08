@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import springfox.documentation.annotations.ApiIgnore;
 
-@Controller
 @Api(description="登录模块")
+@Controller
 public class LoginController extends BaseController {
 
-	@ApiOperation(value="进入登录界面")
+	@ApiOperation(value="进入登录界面", notes = "进入login.html")
 	@GetMapping("/login")
 	public String login() {
 		return "/login";
