@@ -2,6 +2,8 @@ package com.lin.recitewords.controller;
 
 import com.lin.recitewords.common.controller.BaseController;
 import com.lin.recitewords.common.model.R;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,8 +22,11 @@ public class LoginController extends BaseController {
 		return model;
 	}
 
+	// 发送邮件接口
 	@GetMapping("/sendMail")
 	@ResponseBody
+	@ApiOperation(value="发送邮件")
+	@ApiImplicitParam(name="to", value="收件人", dataType="String")
 	public R sendMail(String to) {
 		userService.sendMail(to);
 		return R.ok("邮件发送成功");
