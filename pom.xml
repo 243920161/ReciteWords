@@ -146,6 +146,13 @@
 			<version>${swagger.version}</version>
 		</dependency>
 
+		<!-- redis -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

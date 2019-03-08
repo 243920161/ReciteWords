@@ -10,6 +10,6 @@ public class ExceptionController {
 	@ExceptionHandler(Exception.class)
 	@ResponseBody
 	public R exception(Exception e) {
-		return R.error(e.toString());
+		return R.error(e.getMessage());
 	}
 }

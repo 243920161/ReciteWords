@@ -18,9 +18,7 @@ public class Swagger2Config {
 	public Docket createRestApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
 			.apiInfo(new ApiInfoBuilder()
-				.title("背单词软件")
 				.title("背单词软件后台接口文档")
-				.termsOfServiceUrl("http://www.baidu.com")
 				.version("1.0")
 				.build()
 			)
