@@ -11,4 +11,19 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
+
+  <!--按用户名查找数量-->
+  <select id="findCountByUsername" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(*) from user where username = #{username}
+  </select>
+
+  <!--按邮箱查找数量-->
+  <select id="findCountByEmail" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(*) from user where email = #{email}
+  </select>
+
+  <!--登录-->
+  <select id="login" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from user where (username = #{usernameOrEmail} || email = #{usernameOrEmail}) and password = #{password};
+  </select>
 </mapper>

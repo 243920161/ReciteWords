@@ -1,8 +1,11 @@
 package com.lin.recitewords.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 import javax.persistence.*;
-
+@ApiModel(value = "用户")
 public class User {
     /**
      * 用户id
@@ -14,16 +17,19 @@ public class User {
     /**
      * 用户名
      */
+    @ApiModelProperty(value = "用户名")
     private String username;
 
     /**
      * 密码
      */
+    @ApiModelProperty(value = "密码")
     private String password;
 
     /**
      * 邮箱
      */
+    @ApiModelProperty(value = "邮箱")
     private String email;
 
     /**

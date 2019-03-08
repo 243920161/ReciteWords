@@ -1,8 +1,15 @@
 package com.lin.recitewords.common.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel
 public class R {
+	@ApiModelProperty(value = "状态码")
 	private Integer code;
+	@ApiModelProperty(value = "状态消息")
 	private String msg;
+	@ApiModelProperty(value = "数据")
 	private Object data;
 
 	private R(Integer code, String msg, Object data) {

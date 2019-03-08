@@ -22,7 +22,7 @@ public abstract class BaseController {
 	@Autowired
 	protected WrongBookService wrongBookService;
 	@Autowired
-	private WrongService wrongService;
+	protected WrongService wrongService;
 
 	@Autowired
 	protected HttpSession session;

@@ -21,7 +21,8 @@ public class RecitewordsApplicationTests {
 	private StringRedisTemplate template;
 	@Test
 	public void contextLoads() {
-//		System.out.println(template.opsForValue().get("111"));
+		User user = userService.login("admin", "123456");
+		System.out.println(user);
 	}
 
 }

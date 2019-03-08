@@ -9,47 +9,54 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Controller
 @Api(description="登录模块")
 public class LoginController extends BaseController {
 
-	@GetMapping("/login")
 	@ApiOperation(value="进入登录界面")
-	public ModelAndView login() {
-		ModelAndView model = new ModelAndView();
-		model.setViewName("login");
-		model.addObject("hello", "Hello Spring Boot");
-		return model;
+	@GetMapping("/login")
+	public String login() {
+		return "/login";
 	}
 
-	// 发送邮件接口
+	@ApiOperation(value = "发送邮件", notes = "发送邮件时可能出现“邮箱已注册”")
+	@ApiImplicitParam(name = "to", value = "收件人", dataType = "String")
 	@GetMapping("/sendMail")
 	@ResponseBody
-	@ApiOperation(value="发送邮件")
-	@ApiImplicitParam(name = "to", value = "收件人", dataType = "String")
-	public R sendMail(String to) {
+	public R sendMail(String to) throws Exception {
 		userService.sendMail(to);
 		return R.ok("邮件发送成功");
 	}
 
-	// 注册
+	@ApiOperation(value = "注册")
+	@ApiImplicitParam(name = "code", value = "验证码", dataType = "Integer")
 	@PostMapping("/register")
 	@ResponseBody
-	@ApiOperation(value="执行注册")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "username", value = "用户名", dataType = "String"),
-		@ApiImplicitParam(name = "password", value = "密码", dataType = "String"),
-		@ApiImplicitParam(name = "email", value = "邮箱", dataType = "String"),
-		@ApiImplicitParam(name = "code", value = "验证码", dataType = "Integer")
-	})
 	public R register(User user, Integer code) throws Exception {
 		userService.register(user, code);
 		return R.ok("注册成功");
+	}
+
+	@ApiOperation(value = "登录")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "usernameOrEmail", value = "用户名或邮箱"),
+		@ApiImplicitParam(name = "password", value = "密码")
+	})
+	@PostMapping("/login")
+	@ResponseBody
+	public R login(String usernameOrEmail, String password) {
+		User user = userService.login(usernameOrEmail, password);
+		if (user == null) {
+			return R.error("用户名或密码错误");
+		}
+		return R.ok("登录成功");
 	}
 }
