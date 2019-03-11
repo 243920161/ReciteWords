@@ -1,5 +1,6 @@
 package com.lin.recitewords.common.service;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -17,6 +18,7 @@ public class MailService {
 	private JavaMailSender sender;
 	@Autowired
 	private StringRedisTemplate template;
+	private Logger log = Logger.getLogger(MailService.class);
 
 	@Async
 	public void send(String to, int code) {
@@ -27,7 +29,6 @@ public class MailService {
 		message.setSubject("背单词软件-邮箱验证");
 		message.setText("您的验证码为" + code + "，该验证码在30分钟有效，请及时使用");
 		sender.send(message);
-
 		// 保存到Redis
 		template.opsForValue().set("r:" + to, String.valueOf(code));
 		template.expire("r:" + to, 30, TimeUnit.MINUTES);

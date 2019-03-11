@@ -36,6 +36,12 @@ public class LoginController extends BaseController {
 		return R.ok("邮件发送成功");
 	}
 
+	@ApiOperation(value = "进入注册页面", notes = "进入register.html")
+	@GetMapping("/register")
+	public String register() {
+		return "register";
+	}
+
 	@ApiOperation(value = "注册")
 	@ApiImplicitParam(name = "code", value = "验证码", dataType = "Integer")
 	@PostMapping("/register")
