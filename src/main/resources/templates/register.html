@@ -4,9 +4,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>背单词软件</title>
-	<link rel="stylesheet" th:href="@{css/auth.css}">
-	<script th:src="@{lib/jquery/jquery-1.12.4.min.js}"></script>
-	<script th:src="@{lib/jquery/jquery.validate.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/css/auth.css}">
+	<script th:src="@{/lib/jquery/jquery-1.12.4.min.js}"></script>
+	<script th:src="@{/lib/jquery/jquery.validate.min.js}"></script>
+	<script th:src="@{/lib/layui/layui.all.js}"></script>
 	<style>
 		#send {
 			background-color: #44A0B3;
@@ -42,14 +43,14 @@
 					</div>
 					<div class="lowin-group">
 						<label>确认密码</label>
-						<input type="password" name="configPassword" class="lowin-input" placeholder="请再一次确认密码" id="Reconfirm-password" onchange="RecheckPassword()">
+						<input type="password" name="confirmPassword" class="lowin-input" placeholder="请再一次确认密码" id="Reconfirm-password" onchange="RecheckPassword()">
 					</div>
 					<div class="lowin-group">
 						<label>邮箱</label>
 						<input type="email" name="email" class="lowin-input" placeholder="请输入邮箱地址" id="Email-address" onchange="EmailAddress()">
 					</div>
 					<div class="lowin-group">
-						<input type="text" name="emailcode" class="lowin-input" id="send-input">
+						<input type="text" name="code" class="lowin-input" id="send-input">
 						<button id="send" type="button">发送验证码</button>
 					</div>
 					<button class="lowin-btn" type="submit" id="submit">
@@ -66,27 +67,24 @@
 	<footer class="lowin-footer"></footer>
 </div>
 
-<!--<script th:src="@{js/auth.js}"></script>-->
 <script>
-    // Auth.init({
-    //     login_url: '#login',
-    //     forgot_url: '#forgot'
-    // });
     //    注册
     //输入密码
-	var username = document.getElementById("username")
-    var confirmpassword = document.getElementById("confirm-password") //第一次输入密码
-    var Reconfirmpassword = document.getElementById("Reconfirm-password") //第二次输入密码
+	var username = document.getElementById("username");
+    var confirmpassword = document.getElementById("confirm-password"); //第一次输入密码
+    var Reconfirmpassword = document.getElementById("Reconfirm-password"); //第二次输入密码
     var Emailcode = document.getElementById("send-input");
     var EmailcodeValue = Emailcode.value;
-    confirmpassword.onchange = function () {
+    confirmpassword.onchange = function() {
         var sPassword =  confirmpassword.value;
         var word = /^[a-zA-Z]\w{5,17}$/;//定义密码正则表达式
         if (sPassword === ""){
-            alert("密码输入不得为空，请重新输入")
+            layer.alert("密码输入不得为空，请重新输入", {
+                icon: 5
+            })
         }else{
             if (!(word.test(sPassword))) {
-                alert("密码以字母开头，长度在6~18位之间，只能包含字母、数字和下划线");
+                layer.alert("密码以字母开头，长度在6~18位之间，只能包含字母、数字和下划线");
                 confirmpassword.value= "";
                 return false;
             }
@@ -95,25 +93,31 @@
     //   再次确认密码
     function RecheckPassword(){
         if(Reconfirmpassword.value === ""){
-            alert("密码不得为空，请重新输入")
+            layer.alert("密码不得为空，请重新输入", {
+                icon: 5
+            })
         }else{
-            if (confirmpassword.value !=  Reconfirmpassword.value){
-                alert("两次密码输入不一致，请重新输入")
+            if (confirmpassword.value !==  Reconfirmpassword.value){
+                layer.alert("两次密码输入不一致，请重新输入", {
+                    icon: 5
+                });
                 Reconfirmpassword.value= "";
                 return false;
             }
         }
     }
     //邮箱地址正则
-    var Email = document.getElementById("Email-address")
+    var Email = document.getElementById("Email-address");
     function EmailAddress() {
-        if (Email.value ==""){
-            alert("邮箱地址不得为空，请重新输入")
+        if (Email.value ===""){
+            layer.alert("邮箱地址不得为空，请重新输入", {
+                icon: 5
+            });
         } else{
             var EmailValue =Email.value;
             var email = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
             if (!(email.test( EmailValue))) {
-                alert("邮箱输入不正确，请重新输入");
+                layer.alert("邮箱输入不正确，请重新输入");
                 Email.value = "";
                 return false;
             }else {
@@ -124,33 +128,60 @@
     // 发送验证码事件
     var send = document.querySelector('#send');
     send.onclick = function() {
-        if (confirmpassword.value === "" || Reconfirmpassword.value == "" ||  Email.value == ""){
-            alert("信息填写不正确，请检查后重新填写")
+        if (confirmpassword.value === "" || Reconfirmpassword.value === "" ||  Email.value === ""){
+            layer.alert("信息填写不正确，请检查后重新填写", {
+                icon: 5
+			});
         }else {
             var EmailValue =Email.value;  //验证码
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/ReciteWords/sendMail",
+                url: "[[@{/sendMail}]]",
                 dataType: "json",
                 data: {
                     to: EmailValue
                 },
-                error: function () {
-                    code:500;
-                    msg:"连接失败";
-                    alert('邮箱发送失败');
-                },
                 success: function (data) {
-                     code:200;
-					 msg:"连接成功";
-                    alert('邮箱发送成功');
+                    if (data.code === 200) {
+                        layer.msg(data.msg, {
+                            time: 1500
+						});
+					} else {
+                        layer.alert(data.msg, {
+                            icon: 5
+						});
+					}
                 }
             });
         }
 
-    }
+    };
+
+    submit.onclick = function(e) {
+        e.preventDefault();
+        $.ajax({
+			url: '[[@{/register}]]',
+			type: 'post',
+			dataType: 'json',
+			data: $('#registerForm').serialize(),
+			async: true,
+			success: function(data) {
+			    if (data.code === 200) {
+			        layer.msg(data.msg, {
+			            time: 1500
+					}, function() {
+			            location.href = '[[@{/login}]]';
+					});
+				} else {
+			        layer.alert(data.msg, {
+                        icon: 5
+                    });
+				}
+			}
+		});
+	};
     // register button
-    submit.onclick = function(){
+    // submit.onclick = function(){
       // $.ajax({
         //   type:"POST",
         //   url:[[@{/register}]],
@@ -167,12 +198,7 @@
         //     }
         // })
 
-    }
-
-
-
-
-
+    // }
 </script>
 </body>
 </html>

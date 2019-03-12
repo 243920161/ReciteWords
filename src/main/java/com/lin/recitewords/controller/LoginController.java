@@ -33,7 +33,7 @@ public class LoginController extends BaseController {
 	@ResponseBody
 	public R sendMail(String to) throws Exception {
 		userService.sendMail(to);
-		return R.ok("邮件发送成功");
+		return R.ok("发送成功");
 	}
 
 	@ApiOperation(value = "进入注册页面", notes = "进入register.html")
