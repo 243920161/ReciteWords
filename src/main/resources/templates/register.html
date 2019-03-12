@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>背单词软件</title>
+	<link rel="stylesheet" th:href="@{css/auth.css}">
+	<script th:src="@{lib/jquery/jquery-1.12.4.min.js}"></script>
+	<script th:src="@{lib/jquery/jquery.validate.min.js}"></script>
+	<style>
+		#send {
+			background-color: #44A0B3;
+			color: #ffffff;
+			width: 150px;
+			height: 35px;
+			border-width: 0;
+			border-radius: 3px;
+			box-shadow: 0 2px 7px;
+
+		}
+	</style>
+</head>
+
+<body>
+
+<div class="lowin">
+	<div class="lowin-brand">
+		<img th:src="@{img/icon.jpg}" alt="logo" class="icon-img">
+	</div>
+	<div class="lowin-wrapper">
+		<div class="lowin-box lowin-register">
+			<div class="lowin-box-inner">
+				<form>
+					<p class="title-name">用户注册</p>
+					<div class="lowin-group">
+						<label>用户名</label>
+						<input type="text" name="name" class="lowin-input" placeholder="请输入手机号码" onchange="RecheckMobile()" id="OnecheckMobile">
+					</div>
+					<div class="lowin-group">
+						<label>密码</label>
+						<input type="password" name="password" class="lowin-input" placeholder="请输入密码" id="confirm-password" onchange="OnecheckPassword()">
+					</div>
+					<div class="lowin-group">
+						<label>确认密码</label>
+						<input type="password" name="configPassword" class="lowin-input" placeholder="请再一次确认密码" id="Reconfirm-password" onchange="RecheckPassword()">
+					</div>
+					<div class="lowin-group">
+						<label>邮箱</label>
+						<input type="email" name="email" class="lowin-input" placeholder="请输入邮箱地址" id="Email-address" onchange="EmailAddress()">
+					</div>
+					<div class="lowin-group">
+						<input type="text" name="email" class="lowin-input" id="send-input">
+						<button id="send" type="button">发送验证码</button>
+					</div>
+					<button class="lowin-btn">
+						注册
+					</button>
+					<div class="text-foot">
+						<a href="./login.html" class="login-link">返回登录</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<footer class="lowin-footer"></footer>
+</div>
+
+<script th:src="@{js/auth.js}"></script>
+<script>
+    Auth.init({
+        login_url: '#login',
+        forgot_url: '#forgot'
+    });
+    //    注册
+    //用户名
+    var OnecheckMobile = document.getElementById("OnecheckMobile")
+    function RecheckMobile() {
+        if ( OnecheckMobile.value == ""){
+            alert("输入不得为空，请重新输入")
+        } else {
+            var sMobile = OnecheckMobile.value;
+            var reg =  /^1\d{10}$/;//定义手机号正则表达式
+            if (!(reg.test(sMobile))) {
+                alert("请输入正确的手机号");
+                sMobile="";
+                return false;
+            }
+        }
+    }
+    //输入密码
+    var confirmpassword = document.getElementById("confirm-password") //第一次输入密码
+    var Reconfirmpassword = document.getElementById("Reconfirm-password") //第二次输入密码
+    function OnecheckPassword() {
+        var sPassword =  confirmpassword.value;
+        var word = / ^[a-zA-Z]\w{5,17}$/;//定义密码正则表达式
+        if (sPassword == ""){
+            alert("密码输入不得为空，请重新输入")
+        }else{
+            if (!(word.test(sPassword))) {
+                alert("密码以字母开头，长度在6~18位之间，只能包含字母、数字和下划线");
+                password .value = "";
+                return false;
+            }
+        }
+    }
+    //   再次确认密码
+    function RecheckPassword(){
+        if(Reconfirmpassword.value == ""){
+            alert("密码不得为空，请重新输入")
+        }else{
+            if (confirmpassword.value !=  Reconfirmpassword.value){
+                alert("两次密码输入不一致，请重新输入")
+                Reconfirmpassword.value= "";
+                return false;
+            }
+        }
+    }
+    //邮箱地址正则
+    var Email = document.getElementById("Email-address")
+    function EmailAddress() {
+        if (Email.value ==""){
+            alert("邮箱地址不得为空，请重新输入")
+        } else{
+            var EmailValue =Email.value;
+            var email = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+            if (!(email.test( EmailValue))) {
+                alert("邮箱输入不正确，请重新输入");
+                Email.value = "";
+                return false;
+            }
+        }
+    }
+    // 发送验证码事件
+    var send = document.querySelector('#send');
+    send.onclick = function() {
+        if (OnecheckMobile.value == "" || Reconfirmpassword.value == "" ||  Email.value == ""){
+            alert("信息填写不正确，请检查后重新填写")
+        }else {
+            var Email = document.getElementById("Email-address")
+            var EmailValue =Email.value;
+            $.ajax({
+                type: "get",
+                url: "http://localhost:8080/sendMail",
+                dataType: "json",
+                data: {
+                    to: EmailValue
+                },
+                error: function () {
+                    alert('邮箱发送失败');
+                },
+                success: function (data) {
+                    console.log(data)
+                    alert('邮箱发送成功');
+                }
+            });
+        }
+
+    }
+    //请求后台接口
+
+
+    //
+
+
+
+
+</script>
+</body>
+</html>
