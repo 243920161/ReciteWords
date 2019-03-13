@@ -90,15 +90,12 @@
         var sPassword =  confirmpassword.value;
         var word = /^[a-zA-Z]\w{5,17}$/;//定义密码正则表达式
         if (sPassword === ""){
-            layer.alert("密码输入不得为空，请重新输入", {
-                icon: 5,
-                title:'提示'
-            })
+            document.getElementById('hint-two').innerText="密码输入不得为空";
+            document.getElementById('hint-two').style.color='red';
         }else{
             if (!(word.test(sPassword))) {
-                layer.alert("密码以字母开头，长度在6~18位之间，只能包含字母、数字和下划线",{
-                    title:'提示'
-				});
+                document.getElementById('hint-two').innerText="密码以字母开头，长度在6~18位之间，只能包含字母、数字和下划线";
+                document.getElementById('hint-two').style.color='red';
                 confirmpassword.value= "";
                 return false;
             }
@@ -107,16 +104,12 @@
     //   再次确认密码
     function RecheckPassword(){
         if(Reconfirmpassword.value === ""){
-            layer.alert("密码不得为空，请重新输入", {
-                icon: 5,
-				title:'提示'
-            })
+            document.getElementById('hint-three').innerText="确认密码输入不得为空";
+            document.getElementById('hint-three').style.color='red';
         }else{
             if (confirmpassword.value !==  Reconfirmpassword.value){
-                layer.alert("两次密码输入不一致，请重新输入", {
-                    icon: 5,
-                    title:'提示'
-                });
+                document.getElementById('hint-three').innerText="两次密码输入不一致，请重新输入";
+                document.getElementById('hint-three').style.color='red';
                 Reconfirmpassword.value= "";
                 return false;
             }
@@ -127,15 +120,12 @@
         var EmailValue = Email.value;
         var reg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
         if (Email.value=== ""){
-            layer.alert("邮箱输入不得为空，请重新输入", {
-                icon: 5,
-                title:'提示'
-            })
+            document.getElementById('hint-four').innerText="邮箱输入不得为空，请重新输入";
+            document.getElementById('hint-four').style.color='red';
         }else{
             if (!(reg.test(EmailValue))) {
-                layer.alert("邮箱格式不正确",{
-                    title:'提示'
-                });
+                document.getElementById('hint-four').innerText="邮箱格式不正确";
+                document.getElementById('hint-four').style.color='red';
                 Email.value= "";
                 return false;
             }
@@ -145,8 +135,8 @@
     var send = document.querySelector('#send');
     send.onclick = function() {
         if (confirmpassword.value === "" || Reconfirmpassword.value === "" ||  Email.value === ""){
-            layer.alert("信息填写不正确，请检查后重新填写", {
-                icon: 5
+            layer.msg("信息填写不正确，请检查后重新填写", {
+                time: 1500
 			});
         }else {
             var EmailValue =Email.value;  //验证码
@@ -205,10 +195,7 @@
         if (Emailcode.value === ""){
             document.getElementById('hint-five').innerText="验证码输入不得为空";
             document.getElementById('hint-five').style.color='red';
-		}
-
-
-
+		}else{
             $.ajax({
                 url: URL_REGISTER,
                 type: 'post',
@@ -230,6 +217,10 @@
                     }
                 }
             });
+            return;
+		}
+
+
     })
 </script>
 </body>
