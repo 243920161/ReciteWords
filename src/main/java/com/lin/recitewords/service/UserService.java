@@ -36,20 +36,20 @@ public class UserService extends AbstractService<User> {
 	// 执行注册
 	public void register(User user, Integer code) throws Exception {
 		String redisCode = template.opsForValue().get("r:" + user.getEmail());
-		if (redisCode == null) {
-			throw new Exception("验证码已失效");
-		}
-		if (code == null) {
-			throw new Exception("请输入验证码");
-		}
-		if (!code.equals(Integer.valueOf(redisCode))) {
-			throw new Exception("验证码错误");
-		}
 		if (userMapper.findCountByUsername(user.getUsername()) != 0) {
 			throw new Exception("用户名已存在");
 		}
 		if (userMapper.findCountByEmail(user.getEmail()) != 0) {
 			throw new Exception("邮箱已注册");
+		}
+		if (code == null) {
+			throw new Exception("请输入验证码");
+		}
+		if (redisCode == null) {
+			throw new Exception("无效验证码");
+		}
+		if (!code.equals(Integer.valueOf(redisCode))) {
+			throw new Exception("验证码错误");
 		}
 		template.expire("r:" + user.getEmail(), 0, TimeUnit.MINUTES);
 		user.setCreateTime(new Date());
