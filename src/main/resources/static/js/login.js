@@ -23,7 +23,7 @@ $('#loginForm').validate({
 
     // 设置错误字体格式
     errorPlacement: function(error, element) {
-        error.css('fontSize', '15px');
+        error.css('fontSize', '10px');
         error.css('margin', '5px');
         error.css('color', 'red');
         element.after(error); // 在元素后添加字体
