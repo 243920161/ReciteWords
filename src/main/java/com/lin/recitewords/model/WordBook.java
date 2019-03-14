@@ -1,7 +1,10 @@
 package com.lin.recitewords.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Table(name = "word_book")
 public class WordBook {
@@ -25,6 +28,7 @@ public class WordBook {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     /**
@@ -32,6 +36,10 @@ public class WordBook {
      */
     @Column(name = "user_id")
     private Integer userId;
+
+    @Transient
+    private int count;
+    private List<Word> wordList;
 
     /**
      * 获取单词本id
@@ -121,13 +129,27 @@ public class WordBook {
         this.userId = userId;
     }
 
+    public int getCount() {
+        return wordList == null ? 0 : wordList.size();
+    }
+
+    public List<Word> getWordList() {
+        return wordList;
+    }
+
+    public void setWordList(List<Word> wordList) {
+        this.wordList = wordList;
+    }
+
     @Override
     public String toString() {
         return "WordBook{" +
             "wordBookId=" + wordBookId +
             ", name='" + name + '\'' +
             ", remark='" + remark + '\'' +
+            ", createTime=" + createTime +
             ", userId=" + userId +
+            ", count=" + getCount() +
             '}';
     }
 }

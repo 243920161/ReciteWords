@@ -26,10 +26,5 @@ public class RecitewordsApplicationTests {
 	private WordBookService wordBookService;
 	@Test
 	public void contextLoads() {
-		List<WordBook> wordBookList = wordBookService.findByUserId(1);
-		Iterator<WordBook> iterator = wordBookList.iterator();
-		while (iterator.hasNext()) {
-			System.out.println(iterator.next());
-		}
 	}
 }

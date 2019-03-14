@@ -17,4 +17,9 @@ public class WordBookService extends AbstractService<WordBook> {
 	public List<WordBook> findByUserId(Integer userId) {
 		return wordBookMapper.findByUserId(userId);
 	}
+
+	// 根据单词本id查找单词
+	public WordBook findWordByWordBookId(Integer wordBookId) {
+		return wordBookMapper.findWordByWordBookId(wordBookId);
+	}
 }

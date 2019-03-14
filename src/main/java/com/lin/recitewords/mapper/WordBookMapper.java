@@ -8,4 +8,6 @@ import java.util.List;
 public interface WordBookMapper extends Mapper<WordBook> {
 	// 按用户id查找单词本
 	List<WordBook> findByUserId(Integer userId);
+	// 按照单词本id查找单词
+	WordBook findWordByWordBookId(Integer wordBookId);
 }

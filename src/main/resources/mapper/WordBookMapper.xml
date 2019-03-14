@@ -8,11 +8,25 @@
     <id column="word_book_id" jdbcType="INTEGER" property="wordBookId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" property="createTime"/>
     <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <collection property="wordList" ofType="com.lin.recitewords.model.Word">
+      <result column="word_id" jdbcType="INTEGER" property="wordId" />
+      <result column="english" jdbcType="VARCHAR" property="english" />
+      <result column="chinese" jdbcType="VARCHAR" property="chinese" />
+      <result column="word_book_id" jdbcType="INTEGER" property="wordBookId" />
+    </collection>
   </resultMap>
 
   <!--按用户id查找单词本-->
   <select id="findByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select * from word_book where user_id = #{userId}
+  </select>
+
+  <!--按单词本id查找单词-->
+  <select id="findWordByWordBookId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select word_book.*, word.* from word_book
+    cross join word using(word_book_id)
+    where word_book_id = #{wordBookId}
   </select>
 </mapper>
