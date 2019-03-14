@@ -21,4 +21,11 @@ public class IndexController extends BaseController {
 		}
 		return "index";
 	}
+
+	@ApiOperation(value = "退出登录")
+	@GetMapping("/logout")
+	public String logout() {
+		session.invalidate();
+		return "redirect:/login";
+	}
 }
