@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head(title)">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title th:text="${title}"></title>
+	<link rel="stylesheet" th:href="@{/css/animate.css}">
+	<link rel="stylesheet" th:href="@{/css/auth.css}">
+	<link rel="stylesheet" th:href="@{/lib/layui/css/layui.css}"/>
+	<script th:src="@{/lib/jquery/jquery-1.12.4.min.js}"></script>
+	<script th:src="@{/lib/jquery/jquery.validate.min.js}"></script>
+	<script th:src="@{/lib/layui/layui.all.js}"></script>
+	<style>
+		/*出场动画*/
+		.scale-div {
+			animation: fadeInUp 0.2s linear;
+		}
+		.scale-img {
+			animation: fadeInDown 0.2s linear;
+		}
+	</style>
+</head>
+<body>
+
+<div th:fragment="header">
+	<ul class="layui-nav layui-bg-cyan" lay-filter="">
+		<li class="layui-nav-item layui-this"><a href="#">单词本</a></li>
+		<li class="layui-nav-item"><a href="#">错题本</a></li>
+		<li class="layui-nav-item"><a href="#">考试</a></li>
+		<li class="layui-nav-item"><a href="#">考试结果</a></li>
+		<li class="layui-nav-item"><a href="#">个人中心</a></li>
+	</ul>
+	<script>
+		$('li').click(function() {
+            $('li').removeClass('layui-this');
+            $(this).addClass('layui-this');
+		});
+	</script>
+</div>
+</body>
+</html>

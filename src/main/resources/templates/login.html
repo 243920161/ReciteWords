@@ -1,26 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>背单词软件</title>
-	<link rel="stylesheet" th:href="@{/css/auth.css}">
-	<link rel="stylesheet" th:href="@{/lib/layui/css/layui.css}"/>
-	<script th:src="@{/lib/jquery/jquery-1.12.4.min.js}"></script>
-	<script th:src="@{/lib/jquery/jquery.validate.min.js}"></script>
-	<script th:src="@{/lib/layui/layui.all.js}"></script>
-</head>
+<head th:replace="fragment :: head(背单词软件)"></head>
 
 <body>
-
 <div class="lowin">
-	<div class="lowin-brand">
+	<div class="lowin-brand scale-img">
 		<img th:src="@{/img/icon.jpg}" alt="logo" class="icon-img">
 	</div>
 	<div class="lowin-wrapper">
-		<div class="lowin-box lowin-login">
+		<div class="lowin-box lowin-login scale-div">
 			<div class="lowin-box-inner">
-				<form id="loginForm">
+				<form id="loginForm" class="layui-anim-scale">
 					<p class="title-name">用户登录</p>
 					<div class="lowin-group">
 						<label>用户名或邮箱:</label>

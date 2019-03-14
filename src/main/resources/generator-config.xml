@@ -26,6 +26,6 @@
 		<!--<table tableName="word_book" domainObjectName="WordBook"/>-->
 		<!--<table tableName="wrong" domainObjectName="Wrong"/>-->
 		<!--<table tableName="wrong_book" domainObjectName="WrongBook"/>-->
-		<table tableName="user" domainObjectName="User"/>
+		<table tableName="word_book" domainObjectName="WordBook"/>
 	</context>
 </generatorConfiguration>

@@ -1,37 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>背单词软件</title>
-	<link rel="stylesheet" th:href="@{/css/auth.css}">
-	<link rel="stylesheet" th:href="@{/lib/layui/css/layui.css}"/>
-	<script th:src="@{/lib/jquery/jquery-1.12.4.min.js}"></script>
-	<script th:src="@{/lib/jquery/jquery.validate.min.js}"></script>
-	<script th:src="@{/lib/layui/layui.all.js}"></script>
-	<style>
-		.lowin-group #send {
-			background-color: #44A0B3;
-			color: #ffffff;
-			width: 130px;
-			height: 45px;
-			border-width: 0;
-			border-radius: 3px;
-			box-shadow: 0 2px 7px;
-			margin:0px;
-		}
+<head th:replace="fragment :: head(背单词软件)"></head>
 
+<style>
+	.lowin-group #send {
+		background-color: #44A0B3;
+		color: #ffffff;
+		width: 130px;
+		height: 45px;
+		border-width: 0;
+		border-radius: 3px;
+		box-shadow: 0 2px 7px;
+		margin:0px;
+	}
 </style>
-</head>
 
 <body>
 
 <div class="lowin">
-	<div class="lowin-brand">
+	<div class="lowin-brand scale-img">
 		<img th:src="@{img/icon.jpg}" alt="logo" class="icon-img">
 	</div>
 	<div class="lowin-wrapper">
-		<div class="lowin-box lowin-register">
+		<div class="lowin-box lowin-register scale-div">
 			<div class="lowin-box-inner">
 				<form id="registerForm">
 					<p class="title-name">用户注册</p>

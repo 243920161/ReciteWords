@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.7.19, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
 -- Host: localhost    Database: ReciteWords
 -- ------------------------------------------------------
--- Server version	5.7.19-log
+-- Server version	8.0.13
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+ SET NAMES utf8 ;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `exam`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `exam` (
   `exam_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '考试id',
   `name` varchar(255) DEFAULT NULL COMMENT '考试名称',
@@ -52,7 +52,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `exam_detail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `exam_detail` (
   `exam_detail_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '考试详情id',
   `english` varchar(255) DEFAULT NULL COMMENT '英文',
@@ -84,7 +84,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `login_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `login_log` (
   `login_log_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '登录日志id',
   `username` varchar(255) DEFAULT NULL COMMENT '用户名',
@@ -110,15 +110,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
-  `username` varchar(255) DEFAULT NULL COMMENT '用户名',
-  `password` varchar(255) DEFAULT NULL COMMENT '密码',
-  `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
+  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户名',
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '密码',
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '邮箱',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +127,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','123456',NULL,'2019-03-06 11:32:29');
+INSERT INTO `user` VALUES (1,'admin','123456',NULL,'2019-03-06 11:32:29'),(5,'243920161','a123456','243920161@qq.com','2019-03-13 18:23:37');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,11 +137,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `word`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `word` (
   `word_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '单词id',
-  `english` varchar(255) DEFAULT NULL COMMENT '英文',
-  `chinese` varchar(255) DEFAULT NULL COMMENT '中文',
+  `english` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '英文',
+  `chinese` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '中文',
   `word_book_id` int(11) DEFAULT NULL COMMENT '单词本id',
   PRIMARY KEY (`word_id`),
   KEY `fk_word_book_id` (`word_book_id`),
@@ -164,15 +164,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `word_book`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `word_book` (
   `word_book_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '单词本id',
-  `name` varchar(255) DEFAULT NULL COMMENT '单词本名称',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '单词本名称',
+  `remark` varchar(1000) DEFAULT NULL COMMENT '备注',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `user_id` int(11) DEFAULT NULL COMMENT '用户id',
   PRIMARY KEY (`word_book_id`),
   KEY `fk_word_book_user_id` (`user_id`),
   CONSTRAINT `fk_word_book_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,6 +183,7 @@ CREATE TABLE `word_book` (
 
 LOCK TABLES `word_book` WRITE;
 /*!40000 ALTER TABLE `word_book` DISABLE KEYS */;
+INSERT INTO `word_book` VALUES (11,'单词本1','这是单词本1的备注','2019-03-14 08:21:05',1),(12,'单词本2','这是单词本2的备注','2019-03-14 08:21:07',1),(13,'单词本3','这是单词本3的备注','2019-03-14 08:21:07',1),(14,'单词本4','这是单词本4的备注','2019-03-14 08:21:07',1),(15,'单词本5','这是单词本5的备注','2019-03-14 08:21:07',1),(16,'单词本6','这是单词本6的备注','2019-03-14 08:21:08',1),(17,'单词本7','这是单词本7的备注','2019-03-14 08:21:08',1),(18,'单词本8','这是单词本8的备注','2019-03-14 08:21:08',1),(19,'单词本9','这是单词本9的备注','2019-03-14 08:21:08',1),(20,'单词本10','这是单词本10的备注','2019-03-14 08:21:08',1);
 /*!40000 ALTER TABLE `word_book` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +193,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `wrong`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `wrong` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '错题id',
   `english` varchar(255) DEFAULT NULL COMMENT '英文',
@@ -217,10 +220,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `wrong_book`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `wrong_book` (
   `wrong_book_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '错题本id',
-  `name` varchar(255) DEFAULT NULL COMMENT '错题本名称',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '错题本名称',
   `time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '时间',
   `user_id` int(11) DEFAULT NULL COMMENT '用户id',
   PRIMARY KEY (`wrong_book_id`),
@@ -247,4 +250,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-12 16:49:39
+-- Dump completed on 2019-03-14  8:21:52

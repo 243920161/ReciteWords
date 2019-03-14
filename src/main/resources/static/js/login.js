@@ -38,11 +38,7 @@ $('#loginForm').validate({
             data: $(form).serialize(),
             success: function(data) {
                 if (data.code === 200) {
-                    layer.msg(data.msg, {
-                        time: 1500
-                    }, function() {
-                        location.href = URL_INDEX;
-                    });
+                    location.href = URL_INDEX;
                 } else {
                     layer.alert(data.msg, {
                         icon: 5

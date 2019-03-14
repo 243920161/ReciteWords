@@ -7,11 +7,12 @@
     -->
     <id column="word_book_id" jdbcType="INTEGER" property="wordBookId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
   </resultMap>
 
   <!--按用户id查找单词本-->
-  <select id="findByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <select id="findByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select * from word_book where user_id = #{userId}
   </select>
 </mapper>

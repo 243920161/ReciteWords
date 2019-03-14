@@ -1,6 +1,7 @@
 package com.lin.recitewords.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "word_book")
 public class WordBook {
@@ -15,6 +16,16 @@ public class WordBook {
      * 单词本名称
      */
     private String name;
+
+    /**
+     * 备注
+     */
+    private String remark;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
 
     /**
      * 用户id
@@ -59,6 +70,40 @@ public class WordBook {
     }
 
     /**
+     * 获取备注
+     *
+     * @return remark - 备注
+     */
+    public String getRemark() {
+        return remark;
+    }
+
+    /**
+     * 设置备注
+     *
+     * @param remark 备注
+     */
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    /**
+     * 获取创建时间
+     * @return create_time - 创建时间
+     */
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    /**
+     * 设置创建时间
+     * @param createTime 创建时间
+     */
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    /**
      * 获取用户id
      *
      * @return user_id - 用户id
@@ -81,6 +126,7 @@ public class WordBook {
         return "WordBook{" +
             "wordBookId=" + wordBookId +
             ", name='" + name + '\'' +
+            ", remark='" + remark + '\'' +
             ", userId=" + userId +
             '}';
     }
