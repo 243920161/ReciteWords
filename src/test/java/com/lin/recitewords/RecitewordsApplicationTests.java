@@ -13,6 +13,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
@@ -22,18 +24,12 @@ public class RecitewordsApplicationTests {
 	private UserService userService;
 	@Autowired
 	private WordBookService wordBookService;
-	@Autowired
-	private StringRedisTemplate template;
 	@Test
 	public void contextLoads() {
-		/*for (int i = 1; i <= 10; i++) {
-			WordBook book = new WordBook();
-			book.setName("单词本" + i);
-			book.setRemark("这是单词本" + i + "的备注");
-			book.setCreateTime(new Date());
-			book.setUserId(1);
-			wordBookService.add(book);
-		}*/
+		List<WordBook> wordBookList = wordBookService.findByUserId(1);
+		Iterator<WordBook> iterator = wordBookList.iterator();
+		while (iterator.hasNext()) {
+			System.out.println(iterator.next());
+		}
 	}
-
 }

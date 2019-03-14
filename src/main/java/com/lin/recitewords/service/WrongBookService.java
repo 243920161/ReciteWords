@@ -12,7 +12,7 @@ import java.util.List;
 public class WrongBookService extends AbstractService<WrongBook> {
 	@Autowired(required = false)
 	private WrongBookMapper wrongBookMapper;
-	private List<WrongBook> findByUserId(Integer userId) {
+	public List<WrongBook> findByUserId(Integer userId) {
 		return wrongBookMapper.findByUserId(userId);
 	}
 }

@@ -16,8 +16,8 @@ public class IndexController extends BaseController {
 	public String index(Model model) {
 		User user = (User) session.getAttribute("user");
 		if (user != null) {
-			model.addAttribute("wordBookList", wordBookService.findById(user.getUserId()));
-			model.addAttribute("wrongBookList", wrongBookService.findById(user.getUserId()));
+			model.addAttribute("wordBookList", wordBookService.findByUserId(user.getUserId()));
+			model.addAttribute("wrongBookList", wrongBookService.findByUserId(user.getUserId()));
 		}
 		return "index";
 	}
