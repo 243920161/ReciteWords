@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragment :: head(测试页面)"></head>
+
+<body>
+<table id="table"></table>
+
+<script>
+	const options = {
+        url: '[[@{/testData}]]',
+        pagination: true,
+        showRefresh: true,
+        columns: [{
+            field: 'wordBookId',
+            title: '单词本id'
+        }, {
+            field: 'name',
+            title: '单词本名称'
+        }, {
+            field: 'remark',
+            title: '备注'
+        }, {
+            field: 'operate',
+            title: '操作',
+            formatter: operateFormatter //自定义方法，添加操作按钮
+        }]
+	};
+    $('#table').bootstrapTable(options);
+
+    function operateFormatter(value, row, index) {//赋予的参数
+        return [
+            '<a class="btn btn-default" href="#">修改</a>',
+            '<a class="btn btn-default" href="#">删除</a>'
+        ].join('');
+    }
+</script>
+</body>
+</html>

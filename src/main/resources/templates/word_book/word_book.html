@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragment :: head(背单词软件)"></head>
+<style>
+	.word-book-item {
+		width: 90%;
+		margin-left: 5%;
+	}
+</style>
+<body>
+<nav th:replace="fragment :: nav"></nav>
+<div style="height: 70px"></div>
+
+<div class="panel panel-default word-book-item" th:each="wordBook: ${wordBookList}">
+	<div class="panel-heading" th:text="${wordBook.name}" th:wordBookId="${wordBook.wordBookId}"></div>
+</div>
+<script>
+	$('.panel-heading').click(function() {
+	    location.assign('[[@{/word}]]' + '?wordBookId=' + $(this).attr('wordBookId'));
+	});
+</script>
+</body>
+</html>

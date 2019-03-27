@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragment :: head(搜索结果)"></head>
+</body>
+<nav th:replace="fragment :: nav"></nav>
+<div style="height: 50px"></div>
+<ul>
+	<li th:each="word : ${wordList}">
+		<span th:text="${word.english}"></span>：<span th:text="${word.chinese}"></span>
+	</li>
+</ul>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragment :: head(单词)"></head>
+<style>
+	/*整个li项*/
+	.word-item {
+		width: 100%;
+		height: 60px;
+		padding: 0 5%;
+	}
+	/*内容部分*/
+	.word-item .content {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		border-bottom: 1px solid lightgray;
+		position: relative;
+		right: 0px;
+	}
+	/*图片*/
+	.word-item img {
+		width: 40px;
+		height: 40px;
+		margin-top: 10px;
+	}
+	/*文字标签*/
+	.word-item p {
+		text-align: left;
+		margin-left: 10px;
+	}
+	/*英文*/
+	.word-item .english {
+		margin-top: 10px;
+		height: 22px;
+		font-size: 18px;
+	}
+	/*中文*/
+	.word-item .chinese {
+		height: 18px;
+		color: gray;
+	}
+	/*鼠标点击的样式*/
+	.down {
+		background-color: #eeeeee;
+	}
+</style>
+<body>
+<nav th:replace="fragment :: nav"></nav>
+<div style="height: 50px"></div>
+
+<!--单词本信息-->
+<table class="layui-table">
+	<tr>
+		<td colspan="2" th:text="${wordBook.name}"></td>
+	</tr>
+	<tr>
+		<td>单词数量</td>
+		<td th:text="${wordBook.count}"></td>
+	</tr>
+	<tr>
+		<td>创建时间</td>
+		<td th:text="${#dates.format(wordBook.createTime, 'yyyy-MM-dd')}"></td>
+	</tr>
+</table>
+<!--<ul class="layui-nav">-->
+	<!--<li class="layui-nav-item">-->
+		<!--<a href="" th:text="${wordBook.name}"></a>-->
+	<!--</li>-->
+	<!--<br>-->
+	<!--<li class="layui-nav-item">-->
+		<!--<a href="">单词数量<span class="layui-badge" th:text="${wordBook.count}"></span></a>-->
+	<!--</li>-->
+	<!--<br>-->
+	<!--<li class="layui-nav-item">-->
+		<!--<a href="">创建时间<span class="layui-badge" th:text="${#dates.format(wordBook.createTime, 'yyyy-MM-dd')}"></span></a>-->
+	<!--</li>-->
+	<!--<br>-->
+<!--</ul>-->
+
+<!--单词列表-->
+<ul>
+	<li th:each="word: ${wordBook.wordList}" class="word-item">
+		<div class="content">
+			<img th:src="@{/img/icon_word.png}" alt="">
+			<div>
+				<p th:text="${word.english}" class="english"></p>
+				<p th:text="${word.chinese}" class="chinese"></p>
+			</div>
+		</div>
+	</li>
+</ul>
+
+<script>
+	$('.word-item').mousedown(function() {
+	    $(this).addClass('down');
+	});
+	$('.word-item').mouseup(function() {
+	    $(this).removeClass('down');
+	});
+</script>
+</body>
+</html>

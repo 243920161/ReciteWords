@@ -10,4 +10,15 @@
     <result column="chinese" jdbcType="VARCHAR" property="chinese" />
     <result column="word_book_id" jdbcType="INTEGER" property="wordBookId" />
   </resultMap>
+
+  <!--根据单词本id查找单词-->
+  <select id="findByWordBookId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from word where word_book_id = #{wordBookId}
+  </select>
+
+  <!--搜索单词-->
+  <select id="searchWord" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from word where english like concat('%', #{word}, '%')
+    or chinese like concat('%', #{word}, '%')
+  </select>
 </mapper>

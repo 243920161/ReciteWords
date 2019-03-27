@@ -103,17 +103,16 @@ $('#send').click(function() {
         return;
     }
 
-            // 执行发送
-            $.get(URL_SEND_MAIL, 'to=' + email, function(r) {
-                console.log(r);
-                if (r.code === 200) {
-                    layer.msg(r.msg, {
-                        time: 1500
-                    });
-                } else {
-                    layer.alert(r.msg, {
-                        icon: 5
-                    });
+    // 执行发送
+    $.get(URL_SEND_MAIL, 'to=' + email, function(r) {
+        if (r.code === 200) {
+            layer.msg(r.msg, {
+                time: 1500
+            });
+        } else {
+            layer.alert(r.msg, {
+                icon: 5
+            });
         }
     });
 });

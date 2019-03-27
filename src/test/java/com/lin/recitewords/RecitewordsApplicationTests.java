@@ -26,5 +26,14 @@ public class RecitewordsApplicationTests {
 	private WordBookService wordBookService;
 	@Test
 	public void contextLoads() {
+		for (int i = 11; i < 20;i++) {
+			WordBook book = new WordBook();
+			book.setWordBookId(i + 10);
+			book.setName("单词本" + i);
+			book.setCreateTime(new Date());
+			book.setUserId(1);
+			book.setRemark("这是单词本" + i + "的备注");
+			wordBookService.update(book);
+		}
 	}
 }

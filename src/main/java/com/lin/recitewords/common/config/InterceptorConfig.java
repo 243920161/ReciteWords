@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-//@Configuration
+@Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -26,7 +26,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 			}
 		})
 			.addPathPatterns("/**")
-			.addPathPatterns("/swagger-ui.html")
+			.excludePathPatterns("/swagger-ui.html")
 			.excludePathPatterns("/login")
 			.excludePathPatterns("/register")
 			.excludePathPatterns("/favicon.ico")
